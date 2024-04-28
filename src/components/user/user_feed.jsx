@@ -51,8 +51,8 @@ const FeedPage = () => {
             <div key={post.id} className="border p-4 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
               <p className="text-gray-600 mb-2">{post.description}</p>
-              <p className="text-sm text-gray-500">Category: {post.jobCategory}</p>
-              <p className="text-sm text-gray-500">Brief Overview: {post.briefOverview}</p>
+              <p className="text-sm text-gray-500">Category: <b>{post.jobCategory}</b></p>
+              <p className="text-sm text-gray-500"><i>Brief Overview: {post.briefOverview}</i></p>
             </div>
           ))}
         </div>
