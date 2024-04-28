@@ -5,10 +5,15 @@ import { Team } from './user_team';
 import CreatePost from './user_post';
 import FeedPage from './user_feed';
 import UserProfile from './user_profile';
+import {auth} from '../../config/firebase-config';
 const Sidebar = ({ setActiveComponent }) => {
-    const handleSignOut = () => {
-        auth.signOut();
-        
+    const handleSignOut = async () => {
+        try {
+            await auth.signOut();
+            console.log('User signed out');
+          } catch (error) {
+            console.error('Error signing out:', error.message);
+          }
     };
 
     return (
