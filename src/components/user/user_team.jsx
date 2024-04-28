@@ -26,11 +26,10 @@ export const Team = () => {
       <div className="py-16 justify-center items-center">
         <div className="mx-auto mb-10 lg:max-w-xl sm:text-center">
           <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
-            Know Our Team
+            Alumini
           </p>
           <p className="text-base text-gray-700 md:text-lg">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium.
+            Connect with our alumni who are making a difference in the world.
           </p>
         </div>
         <div className="grid gap-10 mx-auto lg:grid-cols-2 lg:max-w-screen-lg">
