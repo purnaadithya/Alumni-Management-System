@@ -76,7 +76,7 @@ const UserHome = () => {
     return (
         <div className="flex">
             <Sidebar setActiveComponent={setActiveComponent} />
-            <div className="flex  h-lvh w-[200%]">
+            <div className="flex h-lvh w-[200%] justify-center items-center">
                 {activeComponent === 'Feeds' && <FeedPage />}
                 {activeComponent === 'Profile' && <UserProfile />}
                 {activeComponent === 'Search' && <Team />}
