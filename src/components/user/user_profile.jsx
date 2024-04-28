@@ -36,6 +36,11 @@ const UserProfile = () => {
     });
   }, []);
 
+  const submitProfile = async () => {
+    setUserDetailsExists(true);
+    await submitUser();
+  }
+
   const submitUser = async () => {
     const docRef = doc(db, "users", user.uid);
     const formData = {
@@ -48,7 +53,7 @@ const UserProfile = () => {
       uid: user.uid,
     };
     await setDoc(docRef, formData, { merge: true });
-    setEditMode(false); // Disable edit mode after submission
+    setEditMode(false);
   };
 
   return (
@@ -89,7 +94,8 @@ const UserProfile = () => {
           )}
         </div>
       </div>
-      <div>
+      {userDetailsExists ? (
+        <div>
         <div className="mb-4">
           <label htmlFor="username" className="block font-medium mb-1">
             Username
@@ -183,6 +189,194 @@ const UserProfile = () => {
           </button>
         )}
       </div>
+      ) : (
+        <div>
+        <div className="mb-4">
+          <label htmlFor="username" className="block font-medium mb-1">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            value={username}
+            onChange={(event) => setUserName(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            // disabled={!editMode}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="education" className="block font-medium mb-1">
+            Education
+          </label>
+          <input
+            type="text"
+            id="education"
+            placeholder="Education"
+            value={education}
+            onChange={(event) => setEducation(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            // disabled={!editMode}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="startYear" className="block font-medium mb-1">
+            Start Year
+          </label>
+          <input
+            type="text"
+            id="startYear"
+            placeholder="Start Year"
+            value={startYear}
+            onChange={(event) => setStartYear(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            // disabled={!editMode}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="endYear" className="block font-medium mb-1">
+            End Year
+          </label>
+          <input
+            type="text"
+            id="endYear"
+            placeholder="End Year"
+            value={endYear}
+            onChange={(event) => setEndYear(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            // disabled={!editMode}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="working" className="block font-medium mb-1">
+            Working
+          </label>
+          <input
+            type="text"
+            id="working"
+            placeholder="Working"
+            value={working}
+            onChange={(event) => setWorking(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            // disabled={!editMode}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="photoURL" className="block font-medium mb-1">
+            Photo URL
+          </label>
+          <input
+            type="text"
+            id="photoURL"
+            placeholder="Photo URL"
+            value={photoURL}
+            onChange={(event) => setPhotoURL(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            // disabled={!editMode}
+          />
+        </div>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            onClick={submitProfile}
+          >
+            Submit Profile
+          </button>
+      </div>
+      )}
+      {/* <div>
+        <div className="mb-4">
+          <label htmlFor="username" className="block font-medium mb-1">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            value={username}
+            onChange={(event) => setUserName(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            disabled={!editMode}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="education" className="block font-medium mb-1">
+            Education
+          </label>
+          <input
+            type="text"
+            id="education"
+            placeholder="Education"
+            value={education}
+            onChange={(event) => setEducation(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            disabled={!editMode}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="startYear" className="block font-medium mb-1">
+            Start Year
+          </label>
+          <input
+            type="text"
+            id="startYear"
+            placeholder="Start Year"
+            value={startYear}
+            onChange={(event) => setStartYear(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            disabled={!editMode}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="endYear" className="block font-medium mb-1">
+            End Year
+          </label>
+          <input
+            type="text"
+            id="endYear"
+            placeholder="End Year"
+            value={endYear}
+            onChange={(event) => setEndYear(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            disabled={!editMode}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="working" className="block font-medium mb-1">
+            Working
+          </label>
+          <input
+            type="text"
+            id="working"
+            placeholder="Working"
+            value={working}
+            onChange={(event) => setWorking(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            disabled={!editMode}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="photoURL" className="block font-medium mb-1">
+            Photo URL
+          </label>
+          <input
+            type="text"
+            id="photoURL"
+            placeholder="Photo URL"
+            value={photoURL}
+            onChange={(event) => setPhotoURL(event.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            disabled={!editMode}
+          />
+        </div>
+        {editMode && (
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            onClick={submitUser}
+          >
+            Update Profile
+          </button>
+        )}
+      </div> */}
     </div>
   );
 };
