@@ -1,16 +1,17 @@
-import React,{ useState, useEffect } from 'react';
-import {db} from '../../config/firebase-config';
-import {collection, doc,getDocs} from 'firebase/firestore';
-
+import React, { useState, useEffect } from 'react';
+import { db } from '../../config/firebase-config';
+import { collection, doc, getDocs } from 'firebase/firestore';
+import UserDetails from './user_details';
 
 export const Team = () => {
 
   const [dbData, setdbData] = useState([]);
   const usersCollectionRef = collection(db, 'users');
 
+  const [selectedUser, setSelectedUser] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
-      try{
+      try {
         const data = await getDocs(usersCollectionRef);
         const filteredData = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
         setdbData(filteredData);
@@ -21,20 +22,26 @@ export const Team = () => {
     };
     fetchData();
   });
+  const viewUserDetails = (user) => {
+    setSelectedUser(user);
+  };
 
-    return (
-      <div className="py-16 justify-center items-center">
-        <div className="mx-auto mb-10 lg:max-w-xl sm:text-center">
-          <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
-            Alumini
-          </p>
-          <p className="text-base text-gray-700 md:text-lg">
-            Connect with our alumni who are making a difference in the world.
-          </p>
-        </div>
-        <div className="grid gap-10 mx-auto lg:grid-cols-2 lg:max-w-screen-lg">
-          {dbData.map((user) => (
-            <div className="grid sm:grid-cols-3">
+  const closeUserDetails = () => {
+    setSelectedUser(null);
+  };
+  return (
+    <div className="py-16 justify-center items-center">
+      <div className="mx-auto mb-10 lg:max-w-xl sm:text-center">
+        <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
+          Alumini
+        </p>
+        <p className="text-base text-gray-700 md:text-lg">
+          Connect with our alumni who are making a difference in the world.
+        </p>
+      </div>
+      <div className="grid gap-10 mx-auto lg:grid-cols-2 lg:max-w-screen-lg">
+        {dbData.map((user) => (
+          <div className="grid sm:grid-cols-3">
             <div className="relative w-full h-48 max-h-full rounded shadow sm:h-auto">
               <img
                 className="absolute object-cover w-full h-full rounded"
@@ -49,6 +56,16 @@ export const Team = () => {
                 Bacon ipsum dolor sit amet salami jowl corned beef, andouille
                 flank.
               </p>
+              <div className="flex items-center space-x-3 mb-4">
+                <button
+                  onClick={() => viewUserDetails(user)}
+                  className="text-white bg-blue-500 hover:bg-blue-600 rounded-md px-3 py-1 transition-colors duration-300"
+                >
+                  View More
+                </button>
+              </div>
+
+
               <div className="flex items-center space-x-3">
                 <a
                   href="/"
@@ -68,9 +85,12 @@ export const Team = () => {
                 </a>
               </div>
             </div>
+            {selectedUser && (
+        <UserDetails user={selectedUser} onClose={closeUserDetails} />
+      )}
           </div>
-          ))}
-        </div>
+        ))}
       </div>
-    );
-  };
+    </div>
+  );
+};
