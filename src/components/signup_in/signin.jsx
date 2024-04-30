@@ -52,7 +52,7 @@ const SignInForm = () => {
     return (
         <div>
             <Navbar />
-            <div className="min-h-screen bg-[#597AAF] bg-[url('https://wallpaperaccess.com/full/6442860.jpg')] bg-cover bg-center text-white flex items-center justify-center">
+            <div className="min-h-screen bg-[#597AAF] bg-[url('/img1.jpeg')] bg-cover bg-center text-white flex items-center justify-center">
                 <div className="welcome-container bg-[#1541A2] p-6 rounded-lg shadow-lg w-1/2 h-[50vh]">
                     <h1 className="text-4xl font-bold text-center">Sign In</h1>
                     <div className="mt-4 text-black">
